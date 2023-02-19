@@ -39,10 +39,18 @@
       span.innerText = `user ${socketID} is typing...`
     })
 
-    socket.on('chat message', function (msg) {
+    socket.on('chat message', function ({ messageAuhor, messageTimestamp, message }) {
       var item = document.createElement('li');
       item.setAttribute('class', 'item-message')
-      item.textContent = msg;
+      item.innerHTML = `
+        <div class="item-message-header">
+          <span class="message-header-author">${messageAuhor}</span>
+          <span class="message-header-timestamp">${messageTimestamp}</span>
+        </div>
+        <div class="item-message-body">
+          <span class="message-body">${message}</span>
+        </div>
+      `
       messages.appendChild(item);
       window.scrollTo(0, document.body.scrollHeight);
     });

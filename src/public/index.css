@@ -25,7 +25,28 @@ body {
   gap: 0.5rem;
 }
 
-.item-message {}
+.item-message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: thistle;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.item-message-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item-message-header > span {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.item-message-body {
+  overflow-wrap: break-word;
+}
 
 #message-entry-section {
   display: flex;
