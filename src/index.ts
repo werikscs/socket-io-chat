@@ -9,9 +9,12 @@ const io = new Server(server)
 app.use(express.static('src/public'))
 
 io.on('connection', (socket) => {
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg)
+  socket.on('chat message', (message) => {
+    const messageAuhor = socket.id
+    const messageTimestamp = new Date()
+    io.emit('chat message', { messageAuhor, messageTimestamp, message })
   })
+
   socket.on('user typing', () => {
     const socketID = socket.id
     io.emit('user typing', socketID)
