@@ -11,8 +11,8 @@ app.use(express.static('src/public'))
 io.on('connection', (socket) => {
   socket.on('chat message', (message) => {
     const messageAuhor = socket.id
-    const messageTimestamp = new Date()
-    io.emit('chat message', { messageAuhor, messageTimestamp, message })
+    const messageDate = new Date()
+    io.emit('chat message', { messageAuhor, messageDate, message })
   })
 
   socket.on('user typing', () => {
