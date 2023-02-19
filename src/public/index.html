@@ -39,20 +39,42 @@
       span.innerText = `user ${socketID} is typing...`
     })
 
-    socket.on('chat message', function ({ messageAuhor, messageTimestamp, message }) {
+    socket.on('chat message', function ({ messageAuhor, messageDate, message }) {
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ]
+      const date = new Date(messageDate)
+      const seconds = date.getSeconds()
+      const minutes = date.getMinutes()
+      const hour = date.getHours()
+      const day = date.getDate()
+      const month = months[date.getMonth()]
+      const year = date.getFullYear()
+
       var item = document.createElement('li');
       item.setAttribute('class', 'item-message')
       item.innerHTML = `
         <div class="item-message-header">
           <span class="message-header-author">${messageAuhor}</span>
-          <span class="message-header-timestamp">${messageTimestamp}</span>
+          <span class="message-header-timestamp">${month} ${day}, ${year} ${hour}:${minutes}:${seconds}</span>
         </div>
         <div class="item-message-body">
           <span class="message-body">${message}</span>
         </div>
       `
       messages.appendChild(item);
-      window.scrollTo(0, document.body.scrollHeight);
+      // window.scrollTo(0, document.body.scrollHeight);
     });
   </script>
 </body>
