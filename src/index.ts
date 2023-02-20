@@ -9,6 +9,12 @@ const io = new Server(server)
 app.use(express.static('src/public'))
 
 io.on('connection', (socket) => {
+  socket.broadcast.emit('user-connected', socket.id)
+
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('user-disconnected', socket.id)
+  })
+
   socket.on('chat message', (message) => {
     const messageAuhor = socket.id
     const messageDate = new Date()

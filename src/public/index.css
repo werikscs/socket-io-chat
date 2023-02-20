@@ -25,6 +25,15 @@ body {
   gap: 0.5rem;
 }
 
+.system-message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: goldenrod;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
 .item-message {
   display: flex;
   flex-direction: column;
