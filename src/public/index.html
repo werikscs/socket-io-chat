@@ -35,6 +35,24 @@
       }
     });
 
+    socket.on('user-connected', (socketID) => {
+      var item = document.createElement('li');
+      item.setAttribute('class', 'system-message')
+      item.innerHTML = `
+        <span>System: User ${socketID} connected</span>
+      `
+      messages.appendChild(item);
+    })
+
+    socket.on('user-disconnected', (socketID) => {
+      var item = document.createElement('li');
+      item.setAttribute('class', 'system-message')
+      item.innerHTML = `
+        <span>System: User ${socketID} disconnected</span>
+      `
+      messages.appendChild(item);
+    })
+
     socket.on('user typing', (socketID) => {
       span.innerText = `user ${socketID} is typing...`
     })
@@ -74,7 +92,6 @@
         </div>
       `
       messages.appendChild(item);
-      // window.scrollTo(0, document.body.scrollHeight);
     });
   </script>
 </body>
