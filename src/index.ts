@@ -14,14 +14,16 @@ const messagesArray: {
 
 app.use(express.static('src/public'))
 
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
   socket.broadcast.emit('user-connected', socket.id)
-
-  socket.emit('load-prev-messages', messagesArray)
 
   socket.on('disconnect', () => {
     socket.broadcast.emit('user-disconnected', socket.id)
   })
+
+  // socket.emit('load-connected-users', allSockets)
+
+  socket.emit('load-prev-messages', messagesArray)
 
   socket.on('chat message', (message) => {
     const messageAuhor = socket.id
