@@ -57,7 +57,18 @@
       span.innerText = `user ${socketID} is typing...`
     })
 
-    socket.on('chat message', function ({ messageAuhor, messageDate, message }) {
+    socket.on('chat message', function (data) {
+      createSimpleMessage(data)
+    });
+
+    socket.on('load-prev-messages', function (dataArray) {
+      dataArray.forEach(data => {
+        createSimpleMessage(data)
+      });
+    })
+
+    function createSimpleMessage(data) {
+      const { messageAuhor, messageDate, message } = data
       const months = [
         "Jan",
         "Feb",
@@ -92,8 +103,9 @@
         </div>
       `
       messages.appendChild(item);
-    });
+    }
   </script>
 </body>
 
 </html>
+
