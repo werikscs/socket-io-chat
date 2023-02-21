@@ -7,6 +7,9 @@
 </head>
 
 <body>
+  <header>
+    <ul id="online-users"></ul>
+  </header>
   <ul id="messages"></ul>
   <div id="message-entry-section">
     <span id="user-typing"></span>
@@ -36,6 +39,7 @@
     });
 
     socket.on('user-connected', (socketID) => {
+      addUserToOnlineUserList(socketID)
       var item = document.createElement('li');
       item.setAttribute('class', 'system-message')
       item.innerHTML = `
@@ -45,6 +49,7 @@
     })
 
     socket.on('user-disconnected', (socketID) => {
+      removeUserFromOnlineUserList(socketID)
       var item = document.createElement('li');
       item.setAttribute('class', 'system-message')
       item.innerHTML = `
@@ -52,6 +57,21 @@
       `
       messages.appendChild(item);
     })
+
+    function addUserToOnlineUserList(socketID) {
+      const item = document.createElement('li');
+      item.setAttribute('id', `${socketID}`)
+      item.setAttribute('class', 'online-user-item')
+      item.innerHTML = `User: ${socketID}`
+      const onlineUserList = document.getElementById('online-users')
+      onlineUserList.appendChild(item);
+    }
+
+    function removeUserFromOnlineUserList(socketID) {
+      const onlineUserList = document.getElementById('online-users')
+      const userLi = onlineUserList.querySelector(`#${socketID}`)
+      userLi.remove()
+    }
 
     socket.on('user typing', (socketID) => {
       span.innerText = `user ${socketID} is typing...`
@@ -108,4 +128,3 @@
 </body>
 
 </html>
-
